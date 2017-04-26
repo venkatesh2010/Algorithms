@@ -13,8 +13,8 @@
 			if (start < end) {
 				var partitionIndex = this.partition(a, start, end);
 				//	console.log(a);
-				this.quicksort(a, start, partitionIndex-1);
-				this.quicksort(a, partitionIndex + 1, end );
+				this.quicksort(a, start, partitionIndex - 1);
+				this.quicksort(a, partitionIndex + 1, end);
 			}
 			return;
 		};
@@ -24,8 +24,8 @@
 			for (i = start; i < end - 1; i++) {
 				if (a[i] <= pivot) {
 					//swap a[i],a[pIndex]
-					 this.swap(a,i,pIndex);
-					 pIndex++;
+					this.swap(a, i, pIndex);
+					pIndex++;
 				}
 			}
 			this.swap(a, pIndex, end);
@@ -37,7 +37,74 @@
 			a[i] = a[j];
 			a[j] = temp;
 		};
+		insertionSort = {};
+		insertionSort.beginSort = function () {
+			var a = [3, 2, 1, 4, 5, 7, 34, 23, 67, 33, 22, 87, 1];
+			console.log(a);
+			this.insertionSort(a, a.length);
+			console.log(a);
+		};
+		insertionSort.insertionSort = function (a, size) {
+			for (var i = 0; i < size - 1; i++) {
+				var min = i;
+				for (j = i + 1; j < size; j++) {
+					if (a[min] > a[j]) {
+						min = j;
+					}
+				}
+				var temp = a[i];
+				a[i] = a[min];
+				a[min] = temp;
+			}
+		};
 
-
+		mergeSort = {};
+		mergeSort.beginSort = function () {
+			var a = [56, 34, 51, 34, 37, 67, 90, 12];
+			mergeSort.mergeSort(a, a.length);
+			console.log(a);
+		}
+		mergeSort.mergeSort = function (a, size) {
+			if (size > 1) {
+				var aL = a.slice(0, Math.floor(size / 2));
+				var aR = a.slice(Math.floor((size) / 2));
+				//console.log(a);
+				this.mergeSort(aL, aL.length);
+				this.mergeSort(aR, aR.length);
+				this.merge(aL, aR, a);
+				console.log('array a:'+a+' array aL:'+aL+' array aR:'+aR);
+				//console.log(a);
+			};
+		}
+		mergeSort.merge = function (aL, aR, a) {
+			var i = 0;
+			var j = 0;
+			var k = 0;
+			while (i < aL.length && j < aR.length) {
+				var unPickedLeft = aL[i];
+				var unPickedRight = aR[j];
+				if( unPickedLeft <= unPickedRight){
+					a[k] = unPickedLeft;
+					i++;
+				}else{
+					a[k] = unPickedRight;
+					j++;
+				}
+				k++;
+			}
+			if(i == aL.length){
+				while(j<aR.length){
+					a[k] = aR[j];
+					j++;k++;
+				}
+			}else if(j == aR.length){
+				while(i<aL.length){
+					a[k] = aL[i];
+					i++;k++;
+				}
+			}
+		};
 	}); // end of document ready
+
+
 })(jQuery); // end of jQuery name space
