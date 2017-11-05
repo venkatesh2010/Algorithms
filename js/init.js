@@ -1,6 +1,37 @@
 (function ($) {
 	$(function () {
-		 quickSort = {};
+		printPossibleSums = (function () {
+			var timeOut = false;
+			return function (event) {
+				if (!timeOut) {
+					timeOut = true;
+					setTimeout(() => {
+						timeOut = false;
+						n = parseInt(event.target.value, 10);
+						let temp = n;
+						while (--temp > 0) {
+							let x = n - temp;
+							let diff = x;
+							x = (temp > x) ? x : temp;
+							while (x > 0) {
+								let multiple = Math.floor(diff / x);
+								let reminder = diff % x;
+								ar = []; ar.push(temp)
+								while (--multiple > -1) ar.push(x);
+								if (reminder > 0) ar.push(reminder);
+								console.log(ar);
+								//console.log(temp,`${multiple} times ${x}`,(reminder>0?reminder:''));
+								x--;
+							}
+						}
+					}, 1000);
+				}
+
+
+			}
+		})(event);
+
+		quickSort = {};
 
 		quickSort.beginSort = function () {
 			//var a = [3, 2, 1, 4, 5, 7, 34, 23, 67, 33, 22, 87, 1];
@@ -13,7 +44,7 @@
 		quickSort.quicksort = function (a, start, end) {
 			if (start < end) {
 				var partitionIndex = this.partition(a, start, end);
-					console.log(a);
+				console.log(a);
 				this.quicksort(a, start, partitionIndex - 1);
 				this.quicksort(a, partitionIndex + 1, end);
 			}
@@ -25,11 +56,11 @@
 			for (i = start; i <= end - 1; i++) {
 				if (a[i] <= pivot) {
 					//swap a[i],a[pIndex]
-				//	console.log("dfdsd",a);
+					//	console.log("dfdsd",a);
 					this.swap(a, i, pIndex);
 					pIndex++;
 				}
-			//	console.log("dfd",a);
+				//	console.log("dfd",a);
 			}
 			this.swap(a, pIndex, end);
 			//console.log(a);
@@ -75,7 +106,7 @@
 				this.mergeSort(aL, aL.length);
 				this.mergeSort(aR, aR.length);
 				this.merge(aL, aR, a);
-				console.log('array a:'+a+' array aL:'+aL+' array aR:'+aR);
+				console.log('array a:' + a + ' array aL:' + aL + ' array aR:' + aR);
 				//console.log(a);
 			};
 		}
@@ -86,27 +117,29 @@
 			while (i < aL.length && j < aR.length) {
 				var unPickedLeft = aL[i];
 				var unPickedRight = aR[j];
-				if( unPickedLeft <= unPickedRight){
+				if (unPickedLeft <= unPickedRight) {
 					a[k] = unPickedLeft;
 					i++;
-				}else{
+				} else {
 					a[k] = unPickedRight;
 					j++;
 				}
 				k++;
 			}
-			if(i == aL.length){
-				while(j<aR.length){
+			if (i == aL.length) {
+				while (j < aR.length) {
 					a[k] = aR[j];
-					j++;k++;
+					j++; k++;
 				}
-			}else if(j == aR.length){
-				while(i<aL.length){
+			} else if (j == aR.length) {
+				while (i < aL.length) {
 					a[k] = aL[i];
-					i++;k++;
+					i++; k++;
 				}
 			}
 		};
+
+
 	}); // end of document ready
 
 
